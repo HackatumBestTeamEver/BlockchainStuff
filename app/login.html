@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HackaTUM</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-green.min.css" />
+    <link rel="stylesheet" type="text/css" href="/home/vagrant/senacor/HackaTUM/styles.css">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./app.js"></script>
+</head>
+<!--Header-->
+<!-- Uses a header that scrolls with the text, rather than staying
+  locked at the top -->
+
+<div class="mdl-layout mdl-js-layout">
+  <header class="mdl-layout__header mdl-layout__header--scroll">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">HackaCar</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+
+      <script>document.body.style.backgroundImage = "url('http://images.car.bauercdn.com/pagefiles/72609/mclaren-720s-01.jpg')";</script>
+
+      <!-- Navigation -->
+      <nav class="mdl-navigation">
+ 
+        <button id="viewStatsButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">View Stats</button>
+        <button id="cancelButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Cancel Contract</button>
+      </nav>
+    </div>
+  </header>
+
+ <dialog id="cancelContractDialog" class="mdl-dialog">
+    <!-- <h4 class="mdl-dialog__title">Contract</h4> -->
+    <div class="mdl-dialog__content">
+      <p>
+        We are sorrz you didnßt agree with our terms and conditions. Please write to us at hackacar@abakus.bt and let us know what changes we could make to better suit zour needs.
+      </p>
+    </div>
+
+  <br><br><button id="closeCancelDialogButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Close</button>
+
+  </dialog>
+
+  <script>
+  	var viewStatsDialog = document.querySelector('#viewStatsDialog');
+  	var viewStatsButton = document.querySelector('#viewStatsButton');
+
+  	viewStatsButton.addEventListener('click',function(){
+  		window.location.href = "\stats.html";
+  	});
+
+  	var cancelContractDialog = document.querySelector('#cancelContractDialog');
+    var cancelButton = document.querySelector('#cancelButton');
+
+    cancelButton.addEventListener('click',function(){
+      cancelContractDialog.showModal();
+    });
+
+    var closeCancelDialogButton = document.querySelector('#closeCancelDialogButton');
+
+    closeCancelDialogButton.addEventListener('click',function(){
+      cancelContractDialog.close();
+    });
+  </script>
+
+</div>
+</body>
+</html>

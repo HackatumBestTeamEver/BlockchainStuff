@@ -6,7 +6,7 @@ contract('myContract', function(accounts) {
     var customer = accounts[1];
     var car = accounts[2];
 
-    var policyMax = 100000000000000000;
+    var policyMax = 10;
 
     var myContractInstance = null;
 
@@ -42,32 +42,32 @@ contract('myContract', function(accounts) {
             return myContractInstance.buy({from: customer, value: policyMax})
 	            .then(getContractState)
 	            .then(state => {
-	                assert.equal(state.moneyInsurance, policyMax, "insurance money not correct after buy");
-	                assert.equal(state.moneyCustomer, 0, "customer money not correct after buy");
+	                assert.equal(state.moneyInsurance, policyMax/2, "insurance money not correct after buy");
+	                assert.equal(state.moneyCustomer, policyMax/2, "customer money not correct after buy");
 	                assert.equal(state.insuranceState, INSURANCE_STATE_ACTIVE, "not insured after buy");
 	            });
         });
 
     });
-/**
+
     describe("record bad driving as car", function() {
 
         it("should increase insurance money and decrease customer money when bad driving is recorded", function() {
-        	return payHowYouDriveInscontract.buy({from: customer, value: policyMax})
-        		.then(() => payHowYouDriveInscontract.recordBadDriving({from: car}))
+        	return myContractInstance.buy({from: customer, value: policyMax})
+        		.then(() => myContractInstance.downgrade(20,{from: car}))
         		.then(getContractState)
         		.then(state => {
+                    assert.equal(state.scores, 80, 'scores did not receive proper downgrade');
         			assert.equal(state.moneyInsurance, 
-        				policyMax - policyMax / 10 + (policyMax / 100), 
+        				6, 
         				"insurance got more money after bad driving skill was recorded");
-
-        			assert.equal(state.moneyCustomer, policyMax / 10 - (policyMax / 100),
+        			assert.equal(state.moneyCustomer, 4,
                         "customer got less money after bad driving skill was recorded");
         		});
         });
 
     });
-
+/**
     describe("withdraw money after buy and bad driving record", function() {
 
         it("should increase insurance money and decreas customer money when bad driving is recorded", function() {
@@ -95,7 +95,9 @@ contract('myContract', function(accounts) {
     		"monthlyPolicyMax",
     		"moneyInsurance",
     		"moneyCustomer",
+            "scores",
     		"insuranceState",
+            "getBalance",
     		"customer",
     		"insurance"
     	];
@@ -107,9 +109,11 @@ contract('myContract', function(accounts) {
  					monthlyPolicyMax: vals[0].toNumber(),
  					moneyInsurance: vals[1].toNumber(),
  					moneyCustomer: vals[2].toNumber(),
- 					insuranceState: vals[3].toNumber(),
- 					customer: vals[4],
- 					insurance: vals[5]
+ 					scores: vals[3].toNumber(),
+                    insuranceState: vals[4].toNumber(),
+ 					balance: vals[5].toNumber(),
+                    customer: vals[6],
+ 					insurance: vals[7]
     			};
     		});
     }
