@@ -2,63 +2,53 @@
 <html>
 <head>
   <title>HackaTUM</title>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-green.min.css" />
+  <link rel="stylesheet" type="text/css" href="./app/stylesheets/styles.css">
+  <style type="text/css">
+  	body {background: white !important;}
+  </style>
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div class="mdl-layout mdl-js-layout">
-  <header class="mdl-layout__header mdl-layout__header">
-    <div class="mdl-layout__header-row">
+  <header>
       <!-- Title -->
       <span class="mdl-layout-title">HackaCar</span>
-    </div>
   </header>
-  <section>
+  <section class="centered">
     <h4 class="mdl-dialog__title">Contract</h4>
     <div class="mdl-dialog__content">
       <p>
         Here is your contract:
       </p>
-      <ul>
-      	<li>Payment - 10 euros / month</li>
-      	<li>Duration - until cancellation</li>
-      </ul>
-      <br><br><button id="buyButton" style="visibility: hidden;" class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Buy</button>
-  <button id="cancelButton" style="visibility: hidden;" class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Cancel</button>
+      <span>Maximal Payment is 10E monthly<br>
+      Subscription until cancellation</span>
+      <br><br><button onclick="App.buyContract();" id="buyButton" style="visibility: hidden;" class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Buy</button>
+  <button onclick="App.cancelContract();" id="cancelButton" style="visibility: hidden;" class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Cancel</button>
     </div>
   </section>
-  <section>
-	<h4 class="mdl-dialog__title">Your Scores</h4>
+  <section class="centered">
+	<h4 class="mdl-dialog__title">Your Score</h4>
     <div class="mdl-dialog__content">
-      <big><span id="scoretext">X
-      </span></big>
+      <b><h5 id="scoretext">
+      </h5></b>
     </div>
   </section>
 
-  <dialog id="acceptContractDialog" class="mdl-dialog">
+  <dialog id="contractDialog" class="mdl-dialog">
     <!-- <h4 class="mdl-dialog__title">Contract</h4> -->
     <div class="mdl-dialog__content">
       <p>
-        Yupiiii!!
+        Thank you for trusting us!
       </p>
     </div>
 
-  <br><br><button id="closeAcceptDialogButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Close</button>
-
-  </dialog>
-
-<dialog id="cancelContractDialog" class="mdl-dialog">
-    <!-- <h4 class="mdl-dialog__title">Contract</h4> -->
-    <div class="mdl-dialog__content">
-      <p>
-        We are sorrz you didnßt agree with our terms and conditions. Please write to us at hackacar@tum.de and let us know what changes we could make to better suit your needs.
-      </p>
-    </div>
-
-  <br><br><button id="closeCancelDialogButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Close</button>
+  <br><br><button onclick="
+      var contractDialog = document.querySelector('#contractDialog');
+      if (contractDialog.open) contractDialog.close();
+      App.displayData();" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Close</button>
 
   </dialog>
 </body>

@@ -17,9 +17,7 @@ contract myContract is mortal {
     uint public scoresMax;
     uint public initialPolicyRatio; // Insurance/User
 
-    enum InsuranceState { CREATED, ACTIVE, INACTIVE, WITHDRAWN }
-
-    InsuranceState public insuranceState;
+    uint public insuranceState;
 
     function myContract(uint _monthlyPolicyMax, address _customer, address _car) {
         monthlyPolicyMax = _monthlyPolicyMax; // =10
@@ -31,7 +29,7 @@ contract myContract is mortal {
 
         insurance = msg.sender;
 
-        insuranceState = InsuranceState.CREATED;
+        insuranceState = 0;
     }
 
     modifier sufficientPolicyMoney(uint _money) {
@@ -57,20 +55,20 @@ contract myContract is mortal {
     function buy() public payable
         sufficientPolicyMoney(msg.value)
         customerOnly(msg.sender) {
-            require((insuranceState == InsuranceState.CREATED) || (insuranceState == InsuranceState.INACTIVE));
+            require((insuranceState == 0) || (insuranceState == 2));
 
             moneyInsurance = monthlyPolicyMax / initialPolicyRatio;
             moneyCustomer = monthlyPolicyMax - moneyInsurance;
 
-            insuranceState = InsuranceState.ACTIVE;
+            insuranceState = 1;
         }
 
     function cancel() public customerOnly(msg.sender) {
-        insuranceState = InsuranceState.INACTIVE;
+        insuranceState = 2;
     }
 
     function downgrade(uint scoreStep) public carOnly(msg.sender) {
-        require(insuranceState == InsuranceState.ACTIVE);
+        require(insuranceState == 1);
         scores = (scores-scoreStep > 0 ? scores-scoreStep : 0);
 
         moneyCustomer = scores*monthlyPolicyMax/(initialPolicyRatio*scoresMax);
@@ -78,22 +76,7 @@ contract myContract is mortal {
     }
 
     function getState() public constant returns(uint) {
-        return 0;
-        /**
-        switch(insuranceState) {
-            case InsuranceState.CREATED:
-                return 0;
-                break;
-            case InsuranceState.ACTIVE:
-                return 1;
-                break;
-            case InsuranceState.INACTIVE:
-                return 2;
-                break;
-            case InsuranceState.WITHDRAWN:
-                return 3;
-                break;
-        }**/
+        return insuranceState;
     }
 
     function getScores() public constant returns(uint) {

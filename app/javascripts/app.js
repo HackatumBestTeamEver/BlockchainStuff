@@ -41,40 +41,55 @@ window.App = {
   },
 
   displayData: function() {
-    MyContract.new(10, user, accounts[2], {from: accounts[0], gas:4700000}).then(function(instance) {
-      myContractInstance = instance; // CAR HARDCODED !!!!!
-
-      myContractInstance.getState().then(function(a){
-        var state = a['c'][0];
-        console.log("State: "+state);
-      });;
-
-      var scoretext = document.querySelector('#scoretext');
-
-      myContractInstance.getScores().then(function(a){
-        var scores = a['c'][0];
-        scoretext.innerHTML = scores;
-      });
+    myContractInstance.getState().then(function(a){
+      var state = a['c'][0];
+      console.log("State: "+state);
 
       var buybutton = document.querySelector('#buyButton');
-      buybutton.style = "visibility: visible";
-      buybutton.addEventListener('click', function() {
-        myContractInstance.buy({from: user, value: 10}).then(function(a){
-          var acceptContract = document.querySelector('#acceptContractDialog');
-          acceptContract.showModal();
+      var cancelbutton = document.querySelector('#cancelButton');
+      
+      if (parseInt(state) == 1) {
+        buybutton.style = "visibility: hidden";
+        cancelbutton.style = "visibility: visible";
+      } else {
+        buybutton.style = "visibility: visible";
+        cancelbutton.style = "visibility: hidden";
+      }
+    });
 
-          var closeAcceptedButton = document.querySelector('#closeAcceptDialogButton');
-          closeAcceptedButton.addEventListener('click', function(){
-            acceptContract.close();
-            App.displayData();
-          });
-        })
-      });
+    // Update scores
+    var scoretext = document.querySelector('#scoretext');
+
+    myContractInstance.getScores().then(function(a){
+      var scores = a['c'][0];
+      scoretext.innerHTML = scores;
     });
   },
 
-  newUser: function(password, car) {
+  buyContract: function(){
+    var contractDialog = document.querySelector('#contractDialog');
+    myContractInstance.buy({from: user, value: 10}).then(function() {
+      if (!contractDialog.open) contractDialog.showModal();
+    });
+  },
+
+  cancelContract: function(){
+    var contractDialog = document.querySelector('#contractDialog');
+    myContractInstance.cancel({from: user}).then(function() {
+      if (!contractDialog.open) contractDialog.showModal();
+    });
+  },
+
+  createContract: function(cb) {
+    MyContract.new(10, user, accounts[2], {from: accounts[0], gas:4700000}).then(function(instance) {
+      cb(instance);
+    });
+  },
+
+  newUser: function(password) {
     user = web3.personal.newAccount(password);
+    web3.personal.unlockAccount(user,password);
+    web3.eth.sendTrabs
     window.location.href = "./index2.html?User="+user;
   }
 };
@@ -93,6 +108,10 @@ window.addEventListener('load', function() {
   }
 
   App.start(function() {
-    if (App.getUser()) App.displayData();
+    if (App.getUser()) {
+      App.createContract(function(instance){
+        myContractInstance = instance;
+        App.displayData()});
+    }
   });
 });
