@@ -1,0 +1,181 @@
+{
+  "contract_name": "myContract",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "moneyCustomer",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "customer",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "close",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "moneyInsurance",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "insurance",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "insuranceState",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "monthlyPolicyMax",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "buy",
+      "outputs": [],
+      "payable": true,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "owned",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "cancel",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "car",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "_monthlyPolicyMax",
+          "type": "uint256"
+        },
+        {
+          "name": "_customer",
+          "type": "address"
+        },
+        {
+          "name": "_car",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "constructor"
+    }
+  ],
+  "unlinked_binary": "0x6060604052341561000f57600080fd5b60405160608061043b8339810160405280805191906020018051919060200180519150505b600483905560018054600160a060020a03808516600160a060020a0319928316178355600380548583169084161790556002805433909216919092161790556007805460009260ff1990911690835b02179055505b5050505b61039f8061009c6000396000f300606060405236156100ac5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416630f38bdc981146100b15780632804b2c0146100d657806343d726d6146101055780635a477b3a1461011a57806389cf32041461013f5780639609b82a1461016e57806396d0bd59146101a5578063a6f2ae3a146101ca578063df32754b146101d4578063ea8a1af0146101e9578063ee26fac3146101fe575b600080fd5b34156100bc57600080fd5b6100c461022d565b60405190815260200160405180910390f35b34156100e157600080fd5b6100e9610233565b604051600160a060020a03909116815260200160405180910390f35b341561011057600080fd5b610118610242565b005b341561012557600080fd5b6100c461026e565b60405190815260200160405180910390f35b341561014a57600080fd5b6100e9610274565b604051600160a060020a03909116815260200160405180910390f35b341561017957600080fd5b610181610283565b6040518082600381111561019157fe5b60ff16815260200191505060405180910390f35b34156101b057600080fd5b6100c461028c565b60405190815260200160405180910390f35b610118610292565b005b34156101df57600080fd5b610118610303565b005b34156101f457600080fd5b61011861032e565b005b341561020957600080fd5b6100e9610364565b604051600160a060020a03909116815260200160405180910390f35b60055481565b600154600160a060020a031681565b60005433600160a060020a0390811691161461025d57600080fd5b600054600160a060020a0316ff5b5b565b60065481565b600254600160a060020a031681565b60075460ff1681565b60045481565b600454349081146102a257600080fd5b6001543390600160a060020a038083169116146102be57600080fd5b60005b60075460ff1660038111156102d257fe5b146102dc57600080fd5b600454600680549091019055600780546001919060ff191682805b02179055505b5b505b50565b6000805473ffffffffffffffffffffffffffffffffffffffff191633600160a060020a03161790555b565b6001543390600160a060020a0380831691161461034a57600080fd5b600780546002919060ff19166001835b02179055505b5b50565b600354600160a060020a0316815600a165627a7a72305820d42c34f86d498d85b7aac8ef0138ec4f108ce2ead805a220a5d41a3d699952080029",
+  "networks": {
+    "1510973097774": {
+      "events": {},
+      "links": {},
+      "address": "0x5c6c0b814a95a1b6c9da0b75f9d9d2dcdd82c5cb",
+      "updated_at": 1510976830282
+    },
+    "1510977416672": {
+      "events": {},
+      "links": {},
+      "address": "0x4e4e7eec9915aabfd277ab073ade2273261f6a9d",
+      "updated_at": 1510978329882
+    },
+    "1510978536663": {
+      "events": {},
+      "links": {},
+      "address": "0x0a3bce0434dc5b607cabf7414f9649ea9888a818",
+      "updated_at": 1510978744026
+    },
+    "1510986721804": {
+      "events": {},
+      "links": {},
+      "address": "0x695c5a096f2fe4885e9095a2f1d479ad5f3d3ccf",
+      "updated_at": 1510986744565
+    },
+    "1510987546698": {
+      "events": {},
+      "links": {},
+      "address": "0x5c99eea1d8db0d880a7e02e81c24f8f9793c3495",
+      "updated_at": 1510989323201
+    }
+  },
+  "schema_version": "0.0.5",
+  "updated_at": 1510989323201
+}
