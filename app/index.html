@@ -8,7 +8,6 @@
   <link rel="stylesheet" type="text/css" href="./app/stylesheets/styles.css">
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="./app.js"></script>
 </head>
 <!--Header-->
 <!-- Uses a header that scrolls with the text, rather than staying
@@ -20,16 +19,14 @@
     <div class="mdl-layout__header-row">
       <!-- Title -->
       <span class="mdl-layout-title">HackaCar</span>
-      <!-- Add spacer, to align navigation to the right -->
-      <div class="mdl-layout-spacer"></div>
-
-      <!-- Navigation -->
-      <nav class="mdl-navigation">
-        <button id="createAccountButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Create Account</button>
-        <button id="logInButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Log in</button>
-      </nav>
     </div>
   </header>
+
+  <section>
+    <button id="createAccountButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Create Account</button>
+    <button id="logInButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Log in</button>
+  </section>
+
 
   <dialog id="createAccountDialog" class="mdl-dialog">
     <h4 class="mdl-dialog__title">Create Account</h4>
@@ -41,73 +38,44 @@
  <form action="#">
   <div class="mdl-textfield mdl-js-textfield">
     <input class="mdl-textfield__input" type="text" id="userName">
-    <label class="mdl-textfield__label" for="carID">User Name</label>
+    <label class="mdl-textfield__label" for="userName">User Name</label>
   </div>
-  <br><br>
+  <br>
+    <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="email">
+    <label class="mdl-textfield__label" for="email">Email</label>
+    </div>
+  <br>
+  
     <div class="mdl-textfield mdl-js-textfield">
     <input class="mdl-textfield__input" type="text" id="carID">
     <label class="mdl-textfield__label" for="carID">Car ID</label>
   </div>
 </form>
-  <br><br><button id="submitButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="newUser('user','0xa84b80834f5fddf1360d378838fd4b9724f6d704')">Submit</button>
+  <br><br><button id="submitButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="App.newUser('user','0x2b272ff251ec6c1890a8409875253412896961b5');">Submit</button>
   </dialog>
-
-<dialog id="contractDialog" class="mdl-dialog">
-    <h4 class="mdl-dialog__title">Contract</h4>
-    <div class="mdl-dialog__content">
-      <p>
-        Here is your contract:
-      </p>
-    </div>
-
-  <br><br><button id="buyButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Buy</button>
-  <button id="cancelButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Cancel</button>
-  </dialog>
-
-<dialog id="acceptContractDialog" class="mdl-dialog">
-    <!-- <h4 class="mdl-dialog__title">Contract</h4> -->
-    <div class="mdl-dialog__content">
-      <p>
-        Yupiiii!!
-      </p>
-    </div>
-
-  <br><br><button id="closeAcceptDialogButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Close</button>
-
-  </dialog>
-
-<dialog id="cancelContractDialog" class="mdl-dialog">
-    <!-- <h4 class="mdl-dialog__title">Contract</h4> -->
-    <div class="mdl-dialog__content">
-      <p>
-        We are sorrz you didnßt agree with our terms and conditions. Please write to us at hackacar@abakus.bt and let us know what changes we could make to better suit zour needs.
-      </p>
-    </div>
-
-  <br><br><button id="closeCancelDialogButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Close</button>
-
-  </dialog>
-
 
   <dialog id="logInDialog" class="mdl-dialog">
     <h4 class="mdl-dialog__title">Log In</h4>
     <div class="mdl-dialog__content">
     </div>
  <form action="#">
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="userName">
-    <label class="mdl-textfield__label" for="carID">User Name</label>
-  </div>
-  <br><br>
-<!--     <div class="mdl-textfield mdl-js-textfield">
+    <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="email">
+    <label class="mdl-textfield__label" for="email">Email</label>
+    </div>
+  <br>
+  
+    <div class="mdl-textfield mdl-js-textfield">
     <input class="mdl-textfield__input" type="text" id="carID">
     <label class="mdl-textfield__label" for="carID">Car ID</label>
-  </div> -->
+  </div>
 </form>
   <br><br><button id="logInButton2" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Log In</button>
   </dialog>
-
-  <script>
+</div>
+</body>
+<script>
     var createAccountDialog = document.querySelector('#createAccountDialog');
     var createAccountButton = document.querySelector('#createAccountButton');
 
@@ -120,35 +88,6 @@
 
     submitButton.addEventListener('click', function() {
       createAccountDialog.close();
-      contractDialog.showModal();
-    });
-
-    var acceptContractDialog = document.querySelector('#acceptContractDialog');
-    var buyButton = document.querySelector('#buyButton');
-
-    buyButton.addEventListener('click', function() {
-      contractDialog.close();
-      acceptContractDialog.showModal();
-    });
-
-    var closeAcceptDialogButton = document.querySelector('#closeAcceptDialogButton');
-
-    closeAcceptDialogButton.addEventListener('click',function() {
-      acceptContractDialog.close();
-    });
-
-    var cancelContractDialog = document.querySelector('#cancelContractDialog');
-    var cancelButton = document.querySelector('#cancelButton');
-
-    cancelButton.addEventListener('click',function(){
-      contractDialog.close();
-      cancelContractDialog.showModal();
-    });
-
-    var closeCancelDialogButton = document.querySelector('#closeCancelDialogButton');
-
-    closeCancelDialogButton.addEventListener('click',function(){
-      cancelContractDialog.close();
     });
 
     var logInButton = document.querySelector('#logInButton');
@@ -161,11 +100,8 @@
     var logInButton2 = document.querySelector('#logInButton2');
 
     logInButton2.addEventListener('click',function(){
-      window.location.href = "\login.html";
+      window.location.href = "./index2.html?User="+user;
     })
-
   </script>
-
-</div>
-</body>
+<script type="text/javascript" src="./app.js"></script>
 </html>

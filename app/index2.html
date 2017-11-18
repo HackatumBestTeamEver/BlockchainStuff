@@ -1,10 +1,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MyContract</title>
+  <title>HackaTUM</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-green.min.css" />
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	Test
+<div class="mdl-layout mdl-js-layout">
+  <header class="mdl-layout__header mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">HackaCar</span>
+    </div>
+  </header>
+  <section>
+    <h4 class="mdl-dialog__title">Contract</h4>
+    <div class="mdl-dialog__content">
+      <p>
+        Here is your contract:
+      </p>
+      <ul>
+      	<li>Payment - 10 euros / month</li>
+      	<li>Duration - until cancellation</li>
+      </ul>
+      <br><br><button id="buyButton" style="visibility: hidden;" class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Buy</button>
+  <button id="cancelButton" style="visibility: hidden;" class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Cancel</button>
+    </div>
+  </section>
+  <section>
+	<h4 class="mdl-dialog__title">Your Scores</h4>
+    <div class="mdl-dialog__content">
+      <big><span id="scoretext">X
+      </span></big>
+    </div>
+  </section>
+
+  <dialog id="acceptContractDialog" class="mdl-dialog">
+    <!-- <h4 class="mdl-dialog__title">Contract</h4> -->
+    <div class="mdl-dialog__content">
+      <p>
+        Yupiiii!!
+      </p>
+    </div>
+
+  <br><br><button id="closeAcceptDialogButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Close</button>
+
+  </dialog>
+
+<dialog id="cancelContractDialog" class="mdl-dialog">
+    <!-- <h4 class="mdl-dialog__title">Contract</h4> -->
+    <div class="mdl-dialog__content">
+      <p>
+        We are sorrz you didnßt agree with our terms and conditions. Please write to us at hackacar@tum.de and let us know what changes we could make to better suit your needs.
+      </p>
+    </div>
+
+  <br><br><button id="closeCancelDialogButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Close</button>
+
+  </dialog>
 </body>
 <script type="text/javascript" src="./app.js"></script>
+<script type="text/javascript">
+	
+</script>
 </html>

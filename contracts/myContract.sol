@@ -13,7 +13,9 @@ contract myContract is mortal {
     uint public moneyCustomer;
     uint public moneyInsurance;
     uint public scores;
+
     uint public scoresMax;
+    uint public initialPolicyRatio; // Insurance/User
 
     enum InsuranceState { CREATED, ACTIVE, INACTIVE, WITHDRAWN }
 
@@ -25,6 +27,7 @@ contract myContract is mortal {
         car = _car;
         scores = 100;
         scoresMax = 100;
+        initialPolicyRatio = 2;
 
         insurance = msg.sender;
 
@@ -56,8 +59,8 @@ contract myContract is mortal {
         customerOnly(msg.sender) {
             require((insuranceState == InsuranceState.CREATED) || (insuranceState == InsuranceState.INACTIVE));
 
-            moneyInsurance = monthlyPolicyMax/2;
-            moneyCustomer = monthlyPolicyMax/2;
+            moneyInsurance = monthlyPolicyMax / initialPolicyRatio;
+            moneyCustomer = monthlyPolicyMax - moneyInsurance;
 
             insuranceState = InsuranceState.ACTIVE;
         }
@@ -70,11 +73,34 @@ contract myContract is mortal {
         require(insuranceState == InsuranceState.ACTIVE);
         scores = (scores-scoreStep > 0 ? scores-scoreStep : 0);
 
-        moneyCustomer = scores*monthlyPolicyMax/(2*scoresMax);
+        moneyCustomer = scores*monthlyPolicyMax/(initialPolicyRatio*scoresMax);
         moneyInsurance = monthlyPolicyMax - moneyCustomer;
     }
 
+    function getState() public constant returns(uint) {
+        return 0;
+        /**
+        switch(insuranceState) {
+            case InsuranceState.CREATED:
+                return 0;
+                break;
+            case InsuranceState.ACTIVE:
+                return 1;
+                break;
+            case InsuranceState.INACTIVE:
+                return 2;
+                break;
+            case InsuranceState.WITHDRAWN:
+                return 3;
+                break;
+        }**/
+    }
+
+    function getScores() public constant returns(uint) {
+        return scores;
+    }
+
     function getBalance() public constant returns(uint) {
-        return this.balance;
+        return moneyCustomer;
     }
 }

@@ -11,9 +11,17 @@ var user;
 var myContractInstance = null;
 
 window.App = {
-  start: function(cb) {
+  start: function() {
+    var self = this;
+
+  var url_string = window.location.href
+  var url = new URL(url_string);
+  user = url.searchParams.get("User");
+  console.log(user);
+
     MyContract.setProvider(web3.currentProvider);
 
+    // Get the initial account balance so it can be displayed.
     web3.eth.getAccounts(function(err, accs) {
       if (err != null) {
         alert("There was an error fetching your accounts.");
@@ -27,55 +35,7 @@ window.App = {
 
       console.log(accs);
       accounts = accs;
-
-      cb();
     });
-  },
-
-  getUser: function() {
-    var url_string = window.location.href
-    var url = new URL(url_string);
-    user = url.searchParams.get("User");
-    console.log("User: "+user);
-    return Boolean(user);
-  },
-
-  displayData: function() {
-    MyContract.new(10, user, accounts[2], {from: accounts[0], gas:4700000}).then(function(instance) {
-      myContractInstance = instance; // CAR HARDCODED !!!!!
-
-      myContractInstance.getState().then(function(a){
-        var state = a['c'][0];
-        console.log("State: "+state);
-      });;
-
-      var scoretext = document.querySelector('#scoretext');
-
-      myContractInstance.getScores().then(function(a){
-        var scores = a['c'][0];
-        scoretext.innerHTML = scores;
-      });
-
-      var buybutton = document.querySelector('#buyButton');
-      buybutton.style = "visibility: visible";
-      buybutton.addEventListener('click', function() {
-        myContractInstance.buy({from: user, value: 10}).then(function(a){
-          var acceptContract = document.querySelector('#acceptContractDialog');
-          acceptContract.showModal();
-
-          var closeAcceptedButton = document.querySelector('#closeAcceptDialogButton');
-          closeAcceptedButton.addEventListener('click', function(){
-            acceptContract.close();
-            App.displayData();
-          });
-        })
-      });
-    });
-  },
-
-  newUser: function(password, car) {
-    user = web3.personal.newAccount(password);
-    window.location.href = "./index2.html?User="+user;
   }
 };
 
@@ -92,7 +52,5 @@ window.addEventListener('load', function() {
     window.web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
   }
 
-  App.start(function() {
-    if (App.getUser()) App.displayData();
-  });
+  App.start();
 });
