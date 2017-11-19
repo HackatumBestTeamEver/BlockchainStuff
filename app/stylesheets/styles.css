@@ -41,3 +41,7 @@ body {
 li {
   display: block;
 }
+
+button#cancelButton {
+  background-color: rgb(230,50,70);
+}

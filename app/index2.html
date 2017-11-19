@@ -26,7 +26,7 @@
       <span>Maximal Payment is 10&euro; monthly<br>
       Subscription until cancellation</span>
       <br><br><button onclick="App.buyContract();" id="buyButton" style="visibility: hidden;" class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Buy</button>
-  <button onclick="App.cancelContract();" id="cancelButton" style="visibility: hidden;" class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--alert">Cancel</button>
+  <button onclick="App.cancelContract();" id="cancelButton" style="visibility: hidden;" class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Cancel</button>
     </div>
   </section>
   <section class="centered">
@@ -48,7 +48,7 @@
   <br><br><button onclick="
       var contractDialog = document.querySelector('#contractDialog');
       if (contractDialog.open) contractDialog.close();
-      App.displayData();" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Close</button>
+      App.displayData();" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary">Close</button>
 
   </dialog>
 </body>
