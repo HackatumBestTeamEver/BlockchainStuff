@@ -7,10 +7,18 @@ header {
 	background-color: rgb(0,150,136);
 }
 
+header a .mdl-layout-title {
+	width: 6.5em;
+	height: 1.5em;
+	top: .75em;
+	background:
+		 url(../Hackacarlogo.png)    /* image */
+		 center / 100% 100%/* position / size */
+}
+
 header * {
-	line-height: 56px !important;
-	left: 20px;
-	text-decoration: none !important;
+	line-height: 3.5em !important;
+	left: 1em;
 	color: white;
 }
 
@@ -22,10 +30,6 @@ body {
 
 .centered, dialog {
 	text-align: center;
-}
-
-li {
-	display: block;
 }
 
 button#cancelButton {
