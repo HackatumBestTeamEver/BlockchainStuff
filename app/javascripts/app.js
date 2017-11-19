@@ -9,7 +9,6 @@ var accounts;
 var user;
 
 var myContractInstance = null;
-var myContract = null;
 
 window.App = {
   start: function(cb) {
@@ -124,7 +123,7 @@ window.addEventListener('load', function() {
     if (typeof localStorage != undefined) {
       var json_artifacts = JSON.parse(localStorage.getItem('myContractInstance'+user));
       if (!!json_artifacts) {
-        myContract = web3.eth.contract(json_artifacts.abi);
+        var myContract = web3.eth.contract(json_artifacts.abi);
         //myContract.setProvider(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
         myContractInstance = myContract.at(json_artifacts.address);
         App.displayData();// Do something with the result or continue with more transactions.
