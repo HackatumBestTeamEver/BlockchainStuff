@@ -9,6 +9,7 @@ var accounts;
 var user;
 
 var myContractInstance = null;
+var myContract = null;
 
 window.App = {
   start: function(cb) {
@@ -28,21 +29,30 @@ window.App = {
       console.log(accs);
       accounts = accs;
 
-      cb();
+      cb(accounts);
     });
   },
 
   getUser: function() {
-    var url_string = window.location.href
+    var url_string = window.location.href;
     var url = new URL(url_string);
     user = url.searchParams.get("User");
-    console.log("User: "+user);
-    return Boolean(user);
+    console.log("User: "+user+ ", Address: "+accounts[user]);
+    return user;
+  },
+
+  helper: function(state,cb) {
+    if (state instanceof Promise) {
+      state.then(cb);
+    } else {
+      var value = state || state['c'][0];
+      (function(){cb(value);})();
+    }
   },
 
   displayData: function() {
-    myContractInstance.getState().then(function(a){
-      var state = a['c'][0];
+    App.helper(myContractInstance.getState(),function(a){
+      var state = a;
       console.log("State: "+state);
 
       var buybutton = document.querySelector('#buyButton');
@@ -60,37 +70,36 @@ window.App = {
     // Update scores
     var scoretext = document.querySelector('#scoretext');
 
-    myContractInstance.getScores().then(function(a){
-      var scores = a['c'][0];
+    App.helper(myContractInstance.getScores(),function(a){
+      var scores = a;
       scoretext.innerHTML = scores;
     });
   },
 
   buyContract: function(){
     var contractDialog = document.querySelector('#contractDialog');
-    myContractInstance.buy({from: user, value: 10}).then(function() {
+    App.helper(myContractInstance.buy({from: accounts[user], value: 10}), function() {
       if (!contractDialog.open) contractDialog.showModal();
     });
   },
 
   cancelContract: function(){
     var contractDialog = document.querySelector('#contractDialog');
-    myContractInstance.cancel({from: user}).then(function() {
+    App.helper(myContractInstance.cancel({from: accounts[user]}),function() {
       if (!contractDialog.open) contractDialog.showModal();
     });
   },
 
   createContract: function(cb) {
-    MyContract.new(10, user, accounts[2], {from: accounts[0], gas:4700000}).then(function(instance) {
+    MyContract.new(10, accounts[user], accounts[2], {from: accounts[0], gas:4700000}).then(function(instance) {
       cb(instance);
     });
   },
 
   newUser: function(password) {
-    user = web3.personal.newAccount(password);
-    web3.personal.unlockAccount(user,password);
-    web3.eth.sendTrabs
-    window.location.href = "./index2.html?User="+user;
+    var user_address = web3.personal.newAccount(password);
+    web3.personal.unlockAccount(user_address,password);
+    window.location.href = "./index2.html?User="+1;
   }
 };
 
@@ -107,11 +116,29 @@ window.addEventListener('load', function() {
     window.web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
   }
 
-  App.start(function() {
-    if (App.getUser()) {
+  App.start(function(accs) {
+    if (!Boolean(App.getUser())) {
+      return;
+    }
+
+    if (typeof localStorage != undefined) {
+      var json_artifacts = JSON.parse(localStorage.getItem('myContractInstance'+user));
+      if (!!json_artifacts) {
+        myContract = web3.eth.contract(json_artifacts.abi);
+        //myContract.setProvider(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
+        myContractInstance = myContract.at(json_artifacts.address);
+        App.displayData();// Do something with the result or continue with more transactions.
+      }
+    } else {
+      alert("Sorry. Your browser don't support all services provided!");
+    }
+
+    if (myContractInstance == null) {
       App.createContract(function(instance){
         myContractInstance = instance;
-        App.displayData()});
+        if (typeof localStorage != undefined) localStorage.setItem('myContractInstance'+user, JSON.stringify(instance));
+        App.displayData();
+      });
     }
   });
 });

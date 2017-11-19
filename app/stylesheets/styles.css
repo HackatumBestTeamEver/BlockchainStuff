@@ -34,11 +34,7 @@ body {
      center center / cover/* position / size */
 }
 
-.centered {
-  display: inline-block; 
-}
-
-.centered {
+.centered, dialog {
   text-align: center;
 }
 

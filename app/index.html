@@ -70,8 +70,8 @@
   <br>
   
     <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="carID">
-    <label class="mdl-textfield__label" for="carID">Car ID</label>
+    <input class="mdl-textfield__input" type="text" id="userID">
+    <label class="mdl-textfield__label" for="userID">User ID</label>
   </div>
 </form>
   <br><br><button id="logInButton2" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Log In</button>
@@ -102,13 +102,16 @@
 
     logInButton.addEventListener('click',function(){
       logInDialog.showModal();
-    })
+    });
 
     var logInButton2 = document.querySelector('#logInButton2');
+    var logInFieldUserID = document.querySelector('#userID')
 
-    logInButton2.addEventListener('click',function(){
-      window.location.href = "./index2.html?User="+user;
-    })
+    logInButton2.addEventListener('click',function() {
+      App.start(function(accs) {
+        window.location.href = "./index2.html?User="+(logInFieldUserID.value || 1);
+      });
+    });// USER HARDCODED!!!!
   </script>
-<script type="text/javascript" src="./app.js"></script>
+  <script type="text/javascript" src="./app.js"></script>
 </html>
