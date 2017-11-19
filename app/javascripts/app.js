@@ -50,6 +50,7 @@ window.App = {
   },
 
   displayData: function() {
+    console.log(myContractInstance);
     App.helper(myContractInstance.getState(),function(a){
       var state = a;
       console.log("State: "+state);
